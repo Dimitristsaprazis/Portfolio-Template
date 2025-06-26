@@ -7,7 +7,7 @@
            :class="{ 'opacity-0 translate-y-10': !heroRightVisible, 'opacity-100 translate-y-0': heroRightVisible }"
            style="transition: all 0.8s cubic-bezier(.77,0,.18,1);"
       >
-        <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=facearea&w=400&h=400&q=80" alt="Profile" class="rounded-full shadow-2xl border-4 border-gray-700 w-48 h-48 sm:w-56 sm:h-56 object-cover">
+        <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=facearea&w=400&h=400&q=80" alt="Profile" class="rounded-full shadow-2xl border-4 border-gray-700 w-48 h-48 sm:w-56 sm:h-56 object-cover mobile-hero-img-el">
       </div>
       <!-- Desktop Layout: Text First -->
       <div class="hidden md:flex flex-1 flex flex-col items-start justify-center px-8 md:px-20"
@@ -421,7 +421,15 @@ html {
     padding-bottom: 5.5rem !important; /* Ensure scroll indicator is always visible */
   }
   .mobile-hero-img {
-    margin-bottom: 2.5rem !important; /* More space below image */
+    margin-top: 2.5rem !important;
+    margin-bottom: 2.5rem !important;
+  }
+  .mobile-hero-img-el {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 2;
+    position: relative;
   }
   .mobile-scroll-indicator {
     bottom: 1.5rem !important; /* Raise scroll indicator a bit for visibility */
