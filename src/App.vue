@@ -309,8 +309,6 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useMotion } from '@vueuse/motion';
 import { AcademicCapIcon, UsersIcon, LightBulbIcon, ArrowPathIcon, ChatBubbleLeftRightIcon, StarIcon } from '@heroicons/vue/24/outline';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
 
 export default {
   components: {
@@ -319,9 +317,7 @@ export default {
     LightBulbIcon,
     ArrowPathIcon,
     ChatBubbleLeftRightIcon,
-    StarIcon,
-    Swiper,
-    SwiperSlide
+    StarIcon
   },
   data() {
     return {
