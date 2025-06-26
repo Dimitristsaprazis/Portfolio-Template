@@ -199,12 +199,7 @@
               </span>
             </div>
             <span class="text-sm text-indigo-200 group-hover:text-indigo-400 capitalize">
-              <template v-if="s.icon === 'email'">
-                {{ s.url.replace('mailto:', '') }}
-              </template>
-              <template v-else>
-                {{ s.icon }}
-              </template>
+              {{ s.icon }}
             </span>
           </a>
         </div>
@@ -248,7 +243,7 @@ const config = {
   social: [
     { icon: 'github', url: 'https://github.com/' },
     { icon: 'linkedin', url: 'https://linkedin.com/' },
-    { icon: 'email', url: 'mailto:your@email.com' }
+    { icon: 'email', url: 'dimtsaprazis@gmail.com' }
   ],
   resumeUrl: '#', // Set to your resume PDF or leave as '#' to hide
   showExperience: true,

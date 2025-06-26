@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 # Portfolio-Template
-=======
-# [Your Name] Portfolio
 
 A modern, responsive, and visually stunning portfolio built with Vite, Vue 3, and Tailwind CSS. Perfect for showcasing your work and skills on Upwork or any freelance platform.
 
@@ -35,6 +32,27 @@ A modern, responsive, and visually stunning portfolio built with Vite, Vue 3, an
   <meta name="description" content="[Your Name] - Professional Portfolio" />
   ```
 
+## How to Add Your Real Social Media and Email Links
+
+To update your social media and email links on your portfolio:
+
+1. Open `src/App.vue` in your code editor.
+2. Find the `config` object near the top of the `<script>` section.
+3. Edit the `social` array with your real links. For example:
+
+```js
+social: [
+  { icon: 'github', url: 'https://github.com/yourusername' },
+  { icon: 'linkedin', url: 'https://linkedin.com/in/yourprofile' },
+  { icon: 'email', url: 'mailto:your@email.com' }
+],
+```
+
+- For **GitHub**, use your real GitHub profile URL.
+- For **LinkedIn**, use your real LinkedIn profile URL.
+- For **Email**, use `mailto:your@email.com` (replace with your real email address).
+
+The labels on the page will always say: `github`, `linkedin`, `email`, but the links will go to your real profiles or open your real email address.
+
 ## License
 MIT
->>>>>>> 4257bd9 (Initial polished portfolio commit)
