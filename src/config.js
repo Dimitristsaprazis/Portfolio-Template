@@ -1,5 +1,5 @@
 const config = {
-  name: 'Your Name',
+  name: ' Dimitris Tsaprazis',
   tagline: 'Your Profession or Tagline',
   about: {
     bio: 'Write your short bio here. Share your passions, what drives you, and what makes you unique. Mention your values, your approach to work, or anything you want people to know about you.',
