@@ -89,13 +89,25 @@
     <section v-if="showExperience" id="experience" class="py-20 md:py-28">
       <div class="max-w-4xl mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-extrabold mb-10 text-center text-indigo-400">Experience</h2>
-        <div class="space-y-8">
-          <div v-for="item in experience" :key="item.title + item.year" class="flex flex-col md:flex-row md:items-center gap-4 bg-gray-800/60 rounded-xl p-6 shadow">
-            <div class="text-indigo-300 font-bold text-lg md:w-32">{{ item.year }}</div>
-            <div class="flex-1">
-              <div class="text-xl font-semibold text-gray-100">{{ item.title }}</div>
-              <div class="text-gray-400 mb-1">{{ item.place }}</div>
-              <div class="text-gray-300">{{ item.description }}</div>
+        <div class="relative pl-8 md:pl-16">
+          <!-- Vertical timeline line -->
+          <div class="absolute left-2 md:left-6 top-0 bottom-0 w-1 bg-indigo-400/30 rounded-full"></div>
+          <div class="space-y-8">
+            <div
+              v-for="(item, idx) in experience"
+              :key="item.title + item.year"
+              class="relative flex flex-col md:flex-row md:items-center gap-4 bg-gray-800/60 rounded-xl p-6 shadow"
+            >
+              <!-- Timeline bullet -->
+              <div class="timeline-bullet absolute z-10">
+                <span class="block w-5 h-5 bg-indigo-400 border-4 border-white dark:border-gray-900 rounded-full shadow"></span>
+              </div>
+              <div class="text-indigo-300 font-bold text-lg md:w-32">{{ item.year }}</div>
+              <div class="flex-1">
+                <div class="text-xl font-semibold text-gray-100">{{ item.title }}</div>
+                <div class="text-gray-400 mb-1">{{ item.place }}</div>
+                <div class="text-gray-300">{{ item.description }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -106,11 +118,47 @@
     <section v-if="showTestimonials" id="testimonials" class="py-20 md:py-28">
       <div class="max-w-3xl mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-extrabold mb-10 text-center text-indigo-400">Testimonials</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div v-for="(t, i) in testimonials" :key="t.author + i" class="bg-gray-800/60 rounded-xl p-6 shadow text-gray-200">
-            <div class="mb-2 text-lg italic">"{{ t.quote }}"</div>
-            <div class="text-indigo-300 font-bold">- {{ t.author }}</div>
-          </div>
+        <div class="relative flex items-center justify-center">
+          <!-- Navigation Buttons -->
+          <button
+            @click="goToTestimonial(currentTestimonial - 1)"
+            class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-indigo-400/80 hover:bg-indigo-500 text-white rounded-full p-2 shadow transition disabled:opacity-30"
+            :disabled="currentTestimonial === 0"
+            style="display: flex;"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <transition name="testimonial-fade" mode="out-in">
+            <div
+              :key="currentTestimonial"
+              ref="testimonialSlide"
+              class="bg-gray-800/60 rounded-2xl p-6 shadow text-gray-200 min-w-[80vw] max-w-[80vw] md:min-w-[480px] md:max-w-[480px] flex-shrink-0 transition-all duration-300"
+              style="touch-action: pan-y;"
+              @touchstart="onTouchStart"
+              @touchmove="onTouchMove"
+              @touchend="onTouchEnd"
+            >
+              <div class="mb-2 text-lg italic flex items-start gap-2">
+                <svg class="w-6 h-6 text-indigo-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m2 0a2 2 0 01-2 2H9a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v6z" />
+                </svg>
+                "{{ testimonials[currentTestimonial].quote }}"
+              </div>
+              <div class="text-indigo-300 font-bold text-right">- {{ testimonials[currentTestimonial].author }}</div>
+            </div>
+          </transition>
+          <button
+            @click="goToTestimonial(currentTestimonial + 1)"
+            class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-indigo-400/80 hover:bg-indigo-500 text-white rounded-full p-2 shadow transition disabled:opacity-30"
+            :disabled="currentTestimonial === testimonials.length - 1"
+            style="display: flex;"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
@@ -118,14 +166,48 @@
     <!-- ================= SOCIAL/CONTACT LINKS SECTION ================= -->
     <section id="contact" class="py-12 md:py-20">
       <div class="max-w-2xl mx-auto px-4 text-center">
-        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-indigo-400">Contact & Social</h2>
-        <div class="flex justify-center gap-6 mb-4">
-          <a v-for="s in social" :key="s.icon" :href="s.url" target="_blank" class="text-indigo-300 hover:text-indigo-400 text-2xl transition-colors duration-200">
-            <i :class="`icon-${s.icon}`"></i>
-            <span class="sr-only">{{ s.icon }}</span>
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-indigo-400">Let's Connect!</h2>
+        <p class="text-lg text-gray-300 mb-8">I'm always open to connecting on social media. Feel free to reach out!</p>
+        <div class="flex flex-wrap justify-center gap-6 mb-4">
+          <a
+            v-for="s in social"
+            :key="s.icon"
+            :href="s.url"
+            target="_blank"
+            rel="noopener"
+            class="group flex flex-col items-center transition-transform duration-200 hover:scale-110"
+          >
+            <div class="bg-indigo-500/90 group-hover:bg-indigo-400 text-white rounded-full p-4 shadow-lg mb-2 transition-colors duration-200">
+              <span v-if="s.icon === 'github'">
+                <!-- GitHub SVG -->
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.1 3.29 9.43 7.86 10.96.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.27 3.4.97.11-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.7.42.36.79 1.09.79 2.2 0 1.59-.01 2.87-.01 3.26 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.74 18.27.5 12 .5z"/></svg>
+              </span>
+              <span v-else-if="s.icon === 'linkedin'">
+                <!-- LinkedIn SVG -->
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg>
+              </span>
+              <span v-else-if="s.icon === 'email'">
+                <!-- Envelope SVG -->
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" fill="none"/>
+                  <path d="M3 7l9 6 9-6" stroke="currentColor" fill="none"/>
+                </svg>
+              </span>
+              <span v-else>
+                <!-- Fallback icon -->
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /></svg>
+              </span>
+            </div>
+            <span class="text-sm text-indigo-200 group-hover:text-indigo-400 capitalize">
+              <template v-if="s.icon === 'email'">
+                {{ s.url.replace('mailto:', '') }}
+              </template>
+              <template v-else>
+                {{ s.icon }}
+              </template>
+            </span>
           </a>
         </div>
-        <div class="text-gray-400">Feel free to connect with me!</div>
       </div>
     </section>
 
@@ -195,7 +277,10 @@ export default {
       heroLeftVisible: false,
       heroRightVisible: false,
       windowWidth: window.innerWidth,
-      isDark: true
+      isDark: true,
+      currentTestimonial: 0,
+      touchStartX: 0,
+      touchEndX: 0,
     }
   },
   mounted() {
@@ -211,6 +296,7 @@ export default {
     window.addEventListener('resize', this.handleResize);
     // Set initial theme
     document.documentElement.classList.toggle('dark', this.isDark);
+    this.$nextTick(() => this.goToTestimonial(0));
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.handleResize);
@@ -246,7 +332,29 @@ export default {
         document.documentElement.classList.remove('dark');
         document.documentElement.classList.add('light');
       }
-    }
+    },
+    goToTestimonial(idx) {
+      if (idx < 0 || idx >= this.testimonials.length) return;
+      this.currentTestimonial = idx;
+    },
+    onTouchStart(e) {
+      this.touchStartX = e.changedTouches[0].screenX;
+    },
+    onTouchMove(e) {
+      this.touchEndX = e.changedTouches[0].screenX;
+    },
+    onTouchEnd() {
+      const dx = this.touchEndX - this.touchStartX;
+      if (Math.abs(dx) > 50) { // swipe threshold
+        if (dx < 0 && this.currentTestimonial < this.testimonials.length - 1) {
+          this.goToTestimonial(this.currentTestimonial + 1);
+        } else if (dx > 0 && this.currentTestimonial > 0) {
+          this.goToTestimonial(this.currentTestimonial - 1);
+        }
+      }
+      this.touchStartX = 0;
+      this.touchEndX = 0;
+    },
   }
 }
 </script>
@@ -634,5 +742,60 @@ html {
   background: linear-gradient(90deg, #e0e7ff 60%, #6366f1 100%);
   color: #fff;
   border-color: #6366f1;
+}
+
+/* Timeline bullets for experience */
+.timeline-bullet {
+  left: -1.5rem;
+  top: 2rem;
+  transform: none;
+}
+@media (min-width: 768px) {
+  .timeline-bullet {
+    left: -2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+/* Timeline bullets for testimonials */
+#testimonials .timeline-bullet {
+  top: 2rem;
+}
+@media (min-width: 768px) {
+  #testimonials .timeline-bullet {
+    top: 2.5rem;
+  }
+}
+
+/* Hide scrollbar for horizontal scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+.snap-x {
+  scroll-snap-type: x mandatory;
+}
+.snap-center {
+  scroll-snap-align: center;
+}
+.testimonial-fade-enter-active, .testimonial-fade-leave-active {
+  transition: opacity 0.4s, transform 0.4s;
+}
+.testimonial-fade-enter-from, .testimonial-fade-leave-to {
+  opacity: 0;
+  transform: translateX(40px);
+}
+.testimonial-fade-leave-from, .testimonial-fade-enter-to {
+  opacity: 1;
+  transform: translateX(0);
+}
+[class^='icon-'], [class*=' icon-'] {
+  font-size: 2rem;
+  display: inline-block;
+  vertical-align: middle;
 }
 </style>
