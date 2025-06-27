@@ -1,5 +1,5 @@
 <template>
-  <section v-if="showExperience" id="experience" class="py-20 md:py-28">
+  <section v-if="showExperience" id="experience" class="py-12 sm:py-16 md:py-24">
     <div class="max-w-4xl mx-auto px-4">
       <h2 class="text-3xl md:text-4xl font-extrabold mb-10 text-center text-indigo-400">Experience</h2>
       <div class="relative pl-8 md:pl-16">

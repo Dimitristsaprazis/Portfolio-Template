@@ -1,27 +1,31 @@
 <template>
   <div class="min-h-screen text-gray-900 bg-gradient-to-br from-white via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 dark:text-gray-100 transition-colors duration-500">
-    <HeroSection
-      :displayedName="displayedName"
-      :typingDone="typingDone"
-      :heroLeftVisible="heroLeftVisible"
-      :heroRightVisible="heroRightVisible"
-      :resumeUrl="resumeUrl"
-      :tagline="tagline"
-      :showResume="showResume"
-      @scrollToAbout="scrollToAbout"
-    />
-    <AboutSection :about="about" :skills="skills" />
-    <ExperienceSection :experience="experience" :showExperience="showExperience" />
-    <TestimonialsSection
-      :testimonials="testimonials"
-      :showTestimonials="showTestimonials"
-      :currentTestimonial="currentTestimonial"
-      @goToTestimonial="goToTestimonial"
-      @onTouchStart="onTouchStart"
-      @onTouchMove="onTouchMove"
-      @onTouchEnd="onTouchEnd"
-    />
-    <ContactSection :social="social" />
+    <div class="flex flex-col gap-y-12 md:gap-y-24">
+      <HeroSection
+        :displayedGreeting="displayedGreeting"
+        :displayedName="displayedName"
+        :displayedTagline="displayedTagline"
+        :typingStep="typingStep"
+        :typingDone="typingDone"
+        :heroLeftVisible="heroLeftVisible"
+        :heroRightVisible="heroRightVisible"
+        :resumeUrl="resumeUrl"
+        :showResume="showResume"
+        @scrollToAbout="scrollToAbout"
+      />
+      <AboutSection :about="about" :skills="skills" />
+      <ExperienceSection :experience="experience" :showExperience="showExperience" />
+      <TestimonialsSection
+        :testimonials="testimonials"
+        :showTestimonials="showTestimonials"
+        :currentTestimonial="currentTestimonial"
+        @goToTestimonial="goToTestimonial"
+        @onTouchStart.passive="onTouchStart"
+        @onTouchMove.passive="onTouchMove"
+        @onTouchEnd.passive="onTouchEnd"
+      />
+      <ContactSection :social="social" />
+    </div>
     <button v-if="showThemeToggle" @click="toggleTheme" class="fixed bottom-6 right-6 z-50 bg-gray-200/80 dark:bg-gray-800/80 text-indigo-500 dark:text-indigo-300 p-3 rounded-full shadow-lg hover:bg-indigo-100 dark:hover:bg-indigo-500 hover:text-indigo-700 dark:hover:text-white transition-colors duration-300">
       <svg v-if="!isDark" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.07l-.71.71M21 12h-1M4 12H3m16.66 5.66l-.71-.71M4.05 4.93l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
       <svg v-else class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
@@ -37,15 +41,14 @@ import { AcademicCapIcon, UsersIcon, LightBulbIcon, ArrowPathIcon, ChatBubbleLef
 import { NCard, NButton, NTag, NGrid, NGridItem } from 'naive-ui';
 import config from './config.js';
 import HeroSection from './components/HeroSection.vue';
-import AboutSection from './components/AboutSection.vue';
 import ExperienceSection from './components/ExperienceSection.vue';
 import TestimonialsSection from './components/TestimonialsSection.vue';
 import ContactSection from './components/ContactSection.vue';
+import AboutSection from './components/AboutSection.vue';
 
 export default {
   components: {
     HeroSection,
-    AboutSection,
     ExperienceSection,
     TestimonialsSection,
     ContactSection,
@@ -55,13 +58,16 @@ export default {
     ArrowPathIcon,
     ChatBubbleLeftRightIcon,
     StarIcon,
-    NCard, NButton, NTag, NGrid, NGridItem
+    NCard, NButton, NTag, NGrid, NGridItem,
+    AboutSection
   },
   data() {
     return {
       ...config,
+      displayedGreeting: '',
       displayedName: '',
-      nameIndex: 0,
+      displayedTagline: '',
+      typingStep: 0, // 0: greeting, 1: name, 2: tagline
       typingDone: false,
       heroLeftVisible: false,
       heroRightVisible: false,
@@ -95,12 +101,32 @@ export default {
   },
   methods: {
     typeWriter() {
-      if (this.nameIndex < this.name.length) {
-        this.displayedName += this.name.charAt(this.nameIndex);
-        this.nameIndex++;
-        setTimeout(this.typeWriter, 60);
-      } else {
-        this.typingDone = true;
+      const greeting = `Hi, I'm`;
+      const name = this.name.trim();
+      const tagline = this.tagline;
+      if (this.typingStep === 0) {
+        if (this.displayedGreeting.length < greeting.length) {
+          this.displayedGreeting += greeting.charAt(this.displayedGreeting.length);
+          setTimeout(this.typeWriter, 35);
+        } else {
+          this.typingStep = 1;
+          setTimeout(this.typeWriter, 250);
+        }
+      } else if (this.typingStep === 1) {
+        if (this.displayedName.length < name.length) {
+          this.displayedName += name.charAt(this.displayedName.length);
+          setTimeout(this.typeWriter, 35);
+        } else {
+          this.typingStep = 2;
+          setTimeout(this.typeWriter, 250);
+        }
+      } else if (this.typingStep === 2) {
+        if (this.displayedTagline.length < tagline.length) {
+          this.displayedTagline += tagline.charAt(this.displayedTagline.length);
+          setTimeout(this.typeWriter, 35);
+        } else {
+          this.typingDone = true;
+        }
       }
     },
     handleResize() {

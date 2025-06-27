@@ -25,7 +25,30 @@ const config = {
   showExperience: true,
   showTestimonials: true,
   showResume: true,
-  showThemeToggle: true
+  showThemeToggle: true,
+  theme: {
+    primaryColor: '#6366f1', // Indigo
+    backgroundGradient: ['#18181b', '#23272f', '#18181b'],
+    fontFamily: {
+      heading: "'Fira Mono', monospace",
+      body: "'Inter', sans-serif"
+    },
+    fontSize: {
+      base: '1rem',
+      heading: '2.5rem',
+      name: '3.5rem'
+    },
+    borderRadius: {
+      card: '1.5rem',
+      button: '9999px',
+      badge: '9999px'
+    },
+    sectionPadding: {
+      y: '6rem'
+    },
+    buttonStyle: 'rounded-full',
+    customCSS: ''
+  }
 };
 
 export default config; 
