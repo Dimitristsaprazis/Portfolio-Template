@@ -94,6 +94,11 @@ export default {
   box-sizing: border-box;
 }
 @media (max-width: 767px) {
+  #about {
+    margin-top: 4.5rem;
+    min-height: unset !important;
+    height: auto !important;
+  }
   .about-content-block {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
