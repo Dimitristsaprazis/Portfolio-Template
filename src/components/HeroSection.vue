@@ -367,6 +367,10 @@ a[aria-label="Download resume"]:hover {
 @media (max-width: 767px) {
   .hero-section {
     padding-top: 2rem !important;
+    padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .mobile-scroll-indicator {
+    bottom: 2.5rem !important;
   }
 }
 </style> 
