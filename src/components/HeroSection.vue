@@ -363,4 +363,10 @@ a[aria-label="Download resume"]:hover {
     margin-bottom: 4.5rem !important;
   }
 }
+
+@media (max-width: 767px) {
+  .hero-section {
+    padding-top: 2rem !important;
+  }
+}
 </style> 
