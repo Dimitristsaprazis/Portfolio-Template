@@ -1,126 +1,212 @@
-# Portfolio-Template
+# Portfolio Website
 
-A modern, responsive, and visually stunning portfolio built with Vite, Vue 3, and Tailwind CSS. Perfect for showcasing your work and skills on Upwork or any freelance platform.
+A modern, responsive portfolio website built with Vue.js 3, Tailwind CSS, and Vite. Features a beautiful design with smooth animations, dark/light theme toggle, and mobile-first responsive layout.
 
-## Features
-- Responsive, minimal design
-- Hero, About, Projects, and Contact sections
-- Built with Tailwind CSS
-- Vue.js for interactivity
-- Easy to customize
+## ✨ Features
 
-## Getting Started
+- 🎨 **Modern Design**: Clean and professional portfolio layout
+- 🌙 **Dark/Light Theme**: Toggle between dark and light modes
+- 📱 **Responsive**: Mobile-first design that works on all devices
+- ⚡ **Fast Performance**: Built with Vite for optimal loading speeds
+- 🎭 **Smooth Animations**: AOS (Animate On Scroll) and custom animations
+- ♿ **Accessible**: WCAG compliant with proper ARIA labels and keyboard navigation
+- 🔧 **Customizable**: Easy to configure through `src/config.js`
 
-1. Clone the repository:
-   ```sh
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js (version 18 or higher)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
    git clone <your-repo-url>
+   cd portfolio-website
    ```
-2. Install dependencies:
-   ```sh
+
+2. **Install dependencies**
+   ```bash
    npm install
    ```
-3. Run the development server:
-   ```sh
+
+3. **Start development server**
+   ```bash
    npm run dev
    ```
 
-## Customization
-- Edit `src/App.vue` for main sections
-- Update `src/assets` for images and styles
-- Add a meta description in `index.html` for SEO:
-  ```html
-  <meta name="description" content="[Your Name] - Professional Portfolio" />
-  ```
+4. **Open your browser**
+   Navigate to `http://localhost:3000`
 
-## Customization Guide
+## 📁 Project Structure
 
-### 1. Update Your Personal Info
-- Open `src/config.js`.
-- Edit the `config` object to set your name, tagline, about, skills, experience, testimonials, and social links.
-- Example:
-  ```js
+```
+portfolio-website/
+├── public/                 # Static assets
+├── src/
+│   ├── components/         # Vue components
+│   │   ├── HeroSection.vue
+│   │   ├── AboutSection.vue
+│   │   ├── ExperienceSection.vue
+│   │   ├── TestimonialsSection.vue
+│   │   └── ContactSection.vue
+│   ├── assets/            # CSS and other assets
+│   ├── config.js          # Configuration file
+│   ├── App.vue           # Main app component
+│   └── main.js           # App entry point
+├── package.json
+├── vite.config.js
+├── tailwind.config.js
+└── README.md
+```
+
+## ⚙️ Configuration
+
+Edit `src/config.js` to customize your portfolio:
+
+```javascript
+const config = {
+  // Personal Information
   name: 'Your Name',
-  tagline: 'Web Developer',
-  social: [
-    { icon: 'github', url: 'https://github.com/yourusername' },
-    { icon: 'linkedin', url: 'https://linkedin.com/in/yourprofile' },
-    { icon: 'email', url: 'mailto:your@email.com' }
-  ],
-  ```
-
-### 2. Change Your Profile Image
-- Open `src/components/HeroSection.vue`.
-- Find the `<img src=...>` tag and replace the URL with your own image link (or use a local image in `src/assets`).
-- Example:
-  ```html
-  <img src="/src/assets/your-photo.jpg" ... >
-  ```
-
-### 3. Change Styles for Each Section
-- Each section component (e.g., `HeroSection.vue`, `AboutSection.vue`, etc.) has its own `<style scoped>` block at the bottom.
-- Edit these blocks to customize colors, spacing, animations, etc., for that section only.
-
-### 4. Change Fonts
-- To use a custom font, edit `tailwind.config.js` to add your font to the `theme.extend.fontFamily` section.
-- Import your font in `src/assets/main.css`.
-- Example in `tailwind.config.js`:
-  ```js
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['YourFont', 'ui-sans-serif', 'system-ui'],
-      },
-    },
+  tagline: 'Your Professional Title',
+  
+  // About Section
+  about: {
+    bio: 'Your bio here...',
+    quote: 'Your favorite quote'
   },
-  ```
-- Example in `main.css`:
-  ```css
-  @import url('https://fonts.googleapis.com/css2?family=YourFont:wght@400;700&display=swap');
-  body {
-    font-family: 'YourFont', ui-sans-serif, system-ui;
-  }
-  ```
+  
+  // Skills, Experience, Testimonials, etc.
+  // ... see config.js for all options
+};
+```
 
-### 5. Edit or Add Sections
-- Each main section is a component in `src/components/` (e.g., `HeroSection.vue`, `AboutSection.vue`, etc.).
-- To add a new section, create a new component and import/use it in `App.vue`.
-- To remove a section, remove its import and usage from `App.vue`.
+### Available Configuration Options
 
-### 6. Update Social Links
-- Edit the `social` array in `src/config.js` with your real URLs.
-- The label under each icon will always say: `github`, `linkedin`, `email` (not your actual email or URL).
+- **Personal Info**: Name, tagline, bio, quote
+- **Skills**: Array of your technical and soft skills
+- **Experience**: Work history with years, titles, and descriptions
+- **Testimonials**: Client/colleague recommendations
+- **Social Links**: GitHub, LinkedIn, email, etc.
+- **Theme**: Colors, fonts, spacing, and other design options
 
-### 7. Best Practices
-- Keep your config and assets (images, etc.) organized in `src/config.js` and `src/assets/`.
-- Use `<style scoped>` in components to avoid style conflicts.
-- Use Tailwind utility classes for rapid styling and consistency.
-- Test your site on both desktop and mobile for best results.
+## 🛠️ Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint (if configured)
+- `npm run format` - Format code with Prettier (if configured)
+
+## 🎨 Customization
+
+### Styling
+
+The project uses Tailwind CSS for styling. You can customize:
+
+- **Colors**: Edit `tailwind.config.js` or use CSS variables
+- **Fonts**: Update font families in `config.js`
+- **Layout**: Modify component templates in `src/components/`
+
+### Adding New Sections
+
+1. Create a new component in `src/components/`
+2. Import and add it to `App.vue`
+3. Add configuration options to `config.js`
+
+### Theme Customization
+
+The theme system supports:
+- Primary, secondary, and accent colors
+- Custom font families
+- Border radius and spacing
+- Custom CSS overrides
+
+## 📱 Responsive Design
+
+The website is built with a mobile-first approach:
+
+- **Mobile**: Single column layout with optimized touch interactions
+- **Tablet**: Improved spacing and layout adjustments
+- **Desktop**: Full two-column layout with enhanced animations
+
+## ♿ Accessibility
+
+This portfolio follows accessibility best practices:
+
+- Semantic HTML structure
+- ARIA labels and roles
+- Keyboard navigation support
+- Focus indicators
+- Screen reader compatibility
+- Color contrast compliance
+
+## 🚀 Deployment
+
+### Netlify (Recommended)
+
+1. Connect your GitHub repository to Netlify
+2. Set build command: `npm run build`
+3. Set publish directory: `dist`
+4. Deploy!
+
+### Vercel
+
+1. Install Vercel CLI: `npm i -g vercel`
+2. Run: `vercel`
+3. Follow the prompts
+
+### GitHub Pages
+
+1. Add to `package.json`:
+   ```json
+   {
+     "scripts": {
+       "deploy": "npm run build && gh-pages -d dist"
+     }
+   }
+   ```
+2. Install gh-pages: `npm install --save-dev gh-pages`
+3. Run: `npm run deploy`
+
+## 🔧 Development
+
+### Code Style
+
+- Use Vue 3 Composition API when possible
+- Follow Vue.js style guide
+- Use kebab-case for props and events
+- Add proper TypeScript types (if using TS)
+
+### Performance Tips
+
+- Optimize images with proper formats and sizes
+- Use lazy loading for non-critical images
+- Minimize bundle size with code splitting
+- Enable gzip compression on your server
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📞 Support
+
+If you have any questions or need help:
+
+- Create an issue on GitHub
+- Check the documentation
+- Review the configuration examples
 
 ---
 
-If you have any questions or want to further customize your portfolio, feel free to open an issue or contribute!
-
-## How to Add Your Real Social Media and Email Links
-
-To update your social media and email links on your portfolio:
-
-1. Open `src/App.vue` in your code editor.
-2. Find the `config` object near the top of the `<script>` section.
-3. Edit the `social` array with your real links. For example:
-
-```js
-social: [
-  { icon: 'github', url: 'https://github.com/yourusername' },
-  { icon: 'linkedin', url: 'https://linkedin.com/in/yourprofile' },
-  { icon: 'email', url: 'mailto:your@email.com' }
-],
-```
-
-- For **GitHub**, use your real GitHub profile URL.
-- For **LinkedIn**, use your real LinkedIn profile URL.
-- For **Email**, use `mailto:your@email.com` (replace with your real email address).
-
-The labels on the page will always say: `github`, `linkedin`, `email`, but the links will go to your real profiles or open your real email address.
-
-## License
-MIT
+**Built with ❤️ using Vue.js, Tailwind CSS, and Vite**

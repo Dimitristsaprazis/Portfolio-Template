@@ -3,17 +3,52 @@
     <div class="flex flex-col md:flex-row w-full px-8 md:px-20 items-stretch justify-center gap-0 md:gap-0">
       <!-- Left: About -->
       <div class="flex-1 flex flex-col justify-center items-start md:items-start pr-0 md:pr-12 text-left md:text-left">
-        <h2 class="text-4xl md:text-5xl font-extrabold text-indigo-400 mb-6 md:mb-8 leading-tight">About Me</h2>
-        <p class="text-lg md:text-xl text-gray-200 max-w-2xl mb-4 md:mb-6">{{ about.bio }}</p>
-        <div class="text-base text-gray-400 italic">"{{ about.quote }}"</div>
+        <h2 
+          class="text-4xl md:text-5xl font-extrabold mb-6 md:mb-8 leading-tight"
+          :style="{ color: theme?.components?.about?.title || '#a78bfa' }"
+        >
+          About Me
+        </h2>
+        <p 
+          class="text-lg md:text-xl max-w-2xl mb-4 md:mb-6"
+          :style="{ color: theme?.components?.about?.bio || '#e5e7eb' }"
+        >
+          {{ about.bio }}
+        </p>
+        <div 
+          class="text-base italic"
+          :style="{ color: theme?.components?.about?.quote || '#9ca3af' }"
+        >
+          "{{ about.quote }}"
+        </div>
       </div>
       <!-- Accent Line -->
-      <div class="hidden md:flex flex-shrink-0 w-0.5 bg-gradient-to-b from-indigo-400/80 to-indigo-400/10 mx-8 rounded-full"></div>
+      <div 
+        class="hidden md:flex flex-shrink-0 w-0.5 bg-gradient-to-b mx-8 rounded-full"
+        :style="{ 
+          background: `linear-gradient(to bottom, ${theme?.components?.about?.accentLine || '#a78bfa'}80, ${theme?.components?.about?.accentLine || '#a78bfa'}10)`
+        }"
+      ></div>
       <!-- Right: Skills -->
       <div class="flex-1 flex flex-col justify-center items-start md:items-start pl-0 md:pl-12 text-left md:text-left">
-        <h3 class="text-2xl font-bold text-indigo-300 mb-8 md:mb-10">Skills</h3>
+        <h3 
+          class="text-2xl font-bold mb-8 md:mb-10"
+          :style="{ color: theme?.components?.about?.subtitle || '#c7d2fe' }"
+        >
+          Skills
+        </h3>
         <div class="flex flex-wrap gap-x-6 gap-y-4 w-full max-w-2xl justify-center md:justify-start skills-list">
-          <span v-for="(skill, i) in skills" :key="skill" class="skill-badge">{{ skill }}</span>
+          <span 
+            v-for="(skill, i) in skills" 
+            :key="skill" 
+            class="skill-badge"
+            :style="{ 
+              backgroundColor: theme?.backgrounds?.skill || '#6366f1',
+              color: theme?.fontColors?.button || '#ffffff'
+            }"
+          >
+            {{ skill }}
+          </span>
         </div>
       </div>
     </div>
@@ -25,7 +60,11 @@ export default {
   name: 'AboutSection',
   props: {
     about: Object,
-    skills: Array
+    skills: Array,
+    theme: {
+      type: Object,
+      default: {}
+    }
   }
 }
 </script>

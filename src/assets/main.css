@@ -45,3 +45,38 @@ html {
     height: auto;
   }
 }
+
+/* Focus styles for better accessibility */
+button:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+a:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+body {
+  color: var(--font-base);
+}
+body * {
+  color: var(--font-base);
+}
+
+/* Bulletproof link and button color overrides */
+body a, body a:visited, body a[aria-label], body a[role="button"] {
+  color: var(--font-link) !important;
+  transition: color 0.2s;
+}
+body a:hover, body a:focus, body a[aria-label]:hover, body a[role="button"]:hover {
+  color: var(--font-hover) !important;
+}
+
+body button, body .button, body input[type="submit"], body input[type="button"] {
+  color: var(--font-button) !important;
+  transition: color 0.2s;
+}
+body button:hover, body .button:hover, body input[type="submit"]:hover, body input[type="button"]:hover {
+  color: var(--font-hover) !important;
+}

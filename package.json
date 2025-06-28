@@ -1,13 +1,17 @@
 {
-  "name": "empty",
+  "name": "portfolio-website",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A modern, responsive portfolio website built with Vue.js and Tailwind CSS",
   "type": "module",
+  "author": "Dimitris Tsaprazis",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "tailwind:init": "npx tailwindcss init -p"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
@@ -22,5 +26,16 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "vite": "^7.0.0"
-  }
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "vue",
+    "portfolio",
+    "tailwindcss",
+    "responsive",
+    "modern"
+  ]
 }
