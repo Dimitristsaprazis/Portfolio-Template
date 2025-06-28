@@ -1,22 +1,22 @@
 <template>
   <section id="about" class="w-full min-h-screen h-[100vh] py-12 sm:py-16 md:py-24 flex flex-col md:flex-row items-center justify-center relative about-section scroll-mt-custom">
-    <div class="flex flex-col md:flex-row w-full px-8 md:px-20 items-stretch justify-center gap-0 md:gap-0">
+    <div class="flex flex-col md:flex-row w-full px-8 md:px-20 items-stretch justify-center gap-0 md:gap-0 about-content-block">
       <!-- Left: About -->
-      <div class="flex-1 flex flex-col justify-center items-start md:items-start pr-0 md:pr-12 text-left md:text-left">
+      <div class="flex-1 flex flex-col justify-center items-center md:items-start pr-0 md:pr-12 text-center md:text-left mb-8 md:mb-0">
         <h2 
-          class="text-4xl md:text-5xl font-extrabold mb-6 md:mb-8 leading-tight"
+          class="text-4xl md:text-5xl font-extrabold mb-4 md:mb-8 leading-tight"
           :style="{ color: theme?.components?.about?.title || '#a78bfa' }"
         >
           About Me
         </h2>
         <p 
-          class="text-lg md:text-xl max-w-2xl mb-4 md:mb-6"
+          class="text-lg md:text-xl max-w-2xl mb-3 md:mb-6 mx-auto"
           :style="{ color: theme?.components?.about?.bio || '#e5e7eb' }"
         >
           {{ about.bio }}
         </p>
         <div 
-          class="text-base italic"
+          class="text-base italic mb-4 mx-auto"
           :style="{ color: theme?.components?.about?.quote || '#9ca3af' }"
         >
           "{{ about.quote }}"
@@ -30,9 +30,9 @@
         }"
       ></div>
       <!-- Right: Skills -->
-      <div class="flex-1 flex flex-col justify-center items-start md:items-start pl-0 md:pl-12 text-left md:text-left">
+      <div class="flex-1 flex flex-col justify-center items-center md:items-start pl-0 md:pl-12 text-center md:text-left">
         <h3 
-          class="text-2xl font-bold mb-8 md:mb-10"
+          class="text-2xl font-bold mb-6 md:mb-10"
           :style="{ color: theme?.components?.about?.subtitle || '#c7d2fe' }"
         >
           Skills
@@ -92,5 +92,17 @@ export default {
   min-width: unset !important;
   width: auto !important;
   box-sizing: border-box;
+}
+@media (max-width: 767px) {
+  .about-content-block {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .about-content-block > div {
+    margin-bottom: 2.5rem;
+  }
+  .about-content-block > div:last-child {
+    margin-bottom: 0;
+  }
 }
 </style> 
