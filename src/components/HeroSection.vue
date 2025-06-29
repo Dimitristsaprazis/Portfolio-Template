@@ -13,7 +13,7 @@
       style="transition: all 0.8s cubic-bezier(.77,0,.18,1);"
     >
       <img 
-        src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=facearea&w=400&h=400&q=80" 
+        :src="image || 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=facearea&w=400&h=400&q=80'" 
         alt="Dimitris Tsaprazis - Professional headshot" 
         class="rounded-full shadow-2xl border-4 border-gray-700 w-48 h-48 sm:w-56 sm:h-56 object-cover mobile-hero-img-el"
         loading="eager"
@@ -127,7 +127,7 @@
     <!-- Desktop Layout: Image Second -->
     <div class="hidden md:flex flex-1 flex flex-col items-center justify-center px-8 md:px-20">
       <img 
-        src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=facearea&w=400&h=400&q=80" 
+        :src="image || 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=facearea&w=400&h=400&q=80'" 
         alt="Dimitris Tsaprazis - Professional headshot" 
         class="rounded-full shadow-2xl border-4 border-gray-700 w-60 h-60 object-cover mb-8"
         loading="eager"
@@ -174,7 +174,6 @@
 </template>
 
 <script>
-import config from '../config.js';
 function colorClassOrStyle(color, type = 'color') {
   if (!color) return { class: '', style: {} };
   if (typeof color === 'string' && (color.startsWith('text-') || color.startsWith('bg-') || color.startsWith('hover:'))) {
@@ -229,6 +228,10 @@ export default {
     theme: {
       type: Object,
       default: () => ({})
+    },
+    image: {
+      type: String,
+      default: ''
     }
   },
   emits: ['scroll-to-about'],
@@ -254,7 +257,6 @@ export default {
     },
     nameStyle() {
       const color = this.theme?.components?.hero?.name || '#ffffff';
-      console.log('Hero name color:', color);
       return {
         '--hero-name-color': color,
         color: 'var(--hero-name-color) !important',

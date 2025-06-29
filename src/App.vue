@@ -16,6 +16,7 @@
         :resume-url="resumeUrl"
         :show-resume="showResume"
         :theme="theme"
+        :image="image"
         @scroll-to-about="scrollToAbout"
       />
       <AboutSection :about="about" :skills="skills" :theme="theme" />
