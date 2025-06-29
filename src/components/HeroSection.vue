@@ -136,6 +136,7 @@
 
     <!-- Scroll Down Animation -->
     <button 
+      v-show="showScrollIndicator"
       @click="$emit('scroll-to-about')" 
       class="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center select-none focus:outline-none group z-10 mt-8 w-full mobile-scroll-indicator"
       aria-label="Scroll to about section"
@@ -231,6 +232,11 @@ export default {
     }
   },
   emits: ['scroll-to-about'],
+  data() {
+    return {
+      showScrollIndicator: true
+    };
+  },
   computed: {
     greetingStyle() {
       const color = this.theme?.components?.hero?.greeting || '#d1d5db';
@@ -267,9 +273,18 @@ export default {
       }
     };
     window.addEventListener('wheel', this._onWheel, { passive: false });
+    this._onScroll = () => {
+      const hero = this.$el;
+      const rect = hero.getBoundingClientRect();
+      // Show indicator if top of hero is near top of viewport
+      this.showScrollIndicator = rect.top >= -40 && rect.bottom > window.innerHeight / 2;
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
   },
   beforeUnmount() {
     window.removeEventListener('wheel', this._onWheel);
+    window.removeEventListener('scroll', this._onScroll);
   },
   methods: {
     resumeButtonStyle() {
